@@ -2,10 +2,7 @@ class DiemDanh:
     # Id integer primary key autoincrement,
     # NgayDiemDanh date,
     # IdHocSinh integer not null
-    def __init__(self):
-        pass
-
-    def __int__(self, Id, NgayDiemDanh, GioDiemDanh, IdHocSinh, TenHocSinh, Lop):
+    def __int__(self, Id=0, NgayDiemDanh=0, GioDiemDanh=0, IdHocSinh=0, TenHocSinh=0, Lop=0):
         self.Id = Id
         self.NgayDiemDanh = NgayDiemDanh
         self.IdHocSinh = IdHocSinh

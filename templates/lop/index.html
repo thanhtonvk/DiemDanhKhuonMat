@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+<nav class="navbar navbar-dark bg-primary navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Trang chủ</a>
+    </div>
+</nav>
+<br>
+<div class="container">
+    <a class="btn btn-primary" href="/lop/add">Thêm</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Mã lớp</th>
+            <th scope="col">Tên lớp</th>
+            <th scope="col">Giáo viên chủ nhiệm</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for lop in lops %}
+        <tr>
+            <td>{{lop.Id}}</td>
+            <td>{{lop.TenLop}}</td>
+            <td>{{lop.GVCN}}</td>
+            <td>
+                <a href="/hoc-sinh/get/{{lop.Id}}" class="btn btn-success">Danh sách học sinh</a>
+                <a href="/diem-danh/get/{{lop.Id}}" class="btn btn-warning">Danh sách điểm danh</a>
+
+            </td>
+            <td>
+                <a href="/lop/edit/{{lop.Id}}" class="btn btn-primary">Cập nhật</a>
+                <a href="/lop/delete/{{lop.Id}}" class="btn btn-danger">Xóa</a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+</html>

@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('./database/database.sqlite')
+conn = sqlite3.connect('../database/database.sqlite')
 conn.execute("""create table Lop(
     Id integer primary key autoincrement,
     TenLop text,
@@ -20,7 +20,7 @@ conn.execute("""create table HocSinh(
 conn.execute("""
 create table DiemDanh(
     Id integer primary key autoincrement,
-    GioDiemDanh text
+    GioDiemDanh text,
     NgayDiemDanh text,
     IdHocSinh integer not null 
 )

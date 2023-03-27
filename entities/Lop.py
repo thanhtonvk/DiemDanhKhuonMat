@@ -1,10 +1,6 @@
 class Lop:
-
-    def __init__(self, Id, TenLop, GVCN, SoHocSinh):
+    def __init__(self, Id=0, TenLop=0, GVCN=0):
         self.Id = Id
         self.TenLop = TenLop
         self.GVCN = GVCN
-        self.SoHocSinh = SoHocSinh
 
-    def __int__(self):
-        pass
