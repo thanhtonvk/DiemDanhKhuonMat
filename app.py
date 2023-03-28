@@ -1,17 +1,22 @@
 import os
 import random
 
+import cv2
 from flask import Flask, render_template, request, redirect
 
 from config.constants import Constants
 from dal import LopDal, HocSinhDal, DiemDanhDal
+from dal.DiemDanhDal import add_diem_danh
+from dal.HocSinhDal import tim_kiem_hoc_sinh
 from entities.HocSinh import HocSinh
 from entities.Lop import Lop
+from modules.face_detection import FaceDetection
 from modules.face_recognition import FaceRecognition
 
 app = Flask(__name__)
 app.config['UPLOAD_VIDEO'] = './faces/'
 face_recognition = FaceRecognition()
+face_detection = FaceDetection()
 
 
 @app.route('/', methods=['GET'])
@@ -138,10 +143,38 @@ def delete_hoc_sinh(id):
     return redirect('/hoc-sinh/get/' + str(Constants.IDLOP))
 
 
-@app.route('/diem-danh/get/<int:id>',methods=['GET'])
+@app.route('/diem-danh/get/<int:id>', methods=['GET'])
 def get_diem_danh(id):
     ds_diem_danh = DiemDanhDal.get_trang_thai_diem_danh(id)
     return render_template('diem-danh/index.html', diemDanhs=ds_diem_danh)
+
+
+@app.route('/diem-danh/hinhanh', methods=['GET', 'POST'])
+def diem_danh():
+    if request.method == 'GET':
+        return render_template('diem-danh/diemdanh.html')
+    if request.method == 'POST':
+        f = request.files['file']
+        file_name = f.filename
+        print(file_name)
+        save_path = os.path.join(app.config['UPLOAD_VIDEO'] + "/images/", file_name)
+        f.save(save_path)
+
+        # load image
+        frame = cv2.imread(save_path)
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        bboxes = face_detection.detect(frame)
+        if len(bboxes) > 0:
+            for idx, box in enumerate(bboxes):
+                box = list(map(int, box))
+                x_min, y_min, x_max, y_max = box
+                face = frame[y_min:y_max, x_min:x_max]
+                hoc_sinh = tim_kiem_hoc_sinh(face_recognition.feature_extractor(face))
+                if hoc_sinh is not None:
+                    add_diem_danh(hoc_sinh.Id)
+        return redirect('/')
+    return render_template('diem-danh/diemdanh.html')
+
 
 if __name__ == '__main__':
     app.run(host='localhost', port=5000)
