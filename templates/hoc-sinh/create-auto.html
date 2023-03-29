@@ -13,13 +13,13 @@
 <body>
 <nav class="navbar navbar-dark bg-primary navbar-expand-lg">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Trang chủ</a>
+        <a class="navbar-brand" href="/">Thông tin học sinh</a>
     </div>
 </nav>
 <br>
 <div class="container">
     <h2>Thêm học sinh</h2>
-    <form action='/hoc-sinh/add' method="POST" enctype="multipart/form-data">
+    <form action='/hoc-sinh/add-auto' method="POST" enctype="multipart/form-data">
         <p>Họ tên<input type="text" name="HoTen" class="form-control"/></p>
 
         <p>Lớp:<select name="Lop" class="form-control">
@@ -27,7 +27,7 @@
             <option value={{lop.Id}}>{{lop.TenLop}}</option>
             {% endfor %}
         </select></p>
-        <p>Video khuôn mặt <input type="file" name="file" class="form-control" accept="video/*"/></p>
+        <p>Video khuôn mặt <input type="file" name="file" class="form-control"  accept="video/*"/></p>
         <p><input type="submit" value="Thêm" class="btn btn-primary"/></p>
     </form>
 </div>

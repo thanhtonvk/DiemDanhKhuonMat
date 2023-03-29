@@ -1,2 +1,2 @@
 DATABASE = './database/database.sqlite'
-FACE_THRESHOLD = 0.9
+FACE_THRESHOLD = 0.8

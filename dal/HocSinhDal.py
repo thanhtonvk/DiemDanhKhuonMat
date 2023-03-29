@@ -61,9 +61,13 @@ def tim_kiem_hoc_sinh(embbeding: np.ndarray):
         emb1 = np.frombuffer(row[6], dtype='float').reshape(1, -1)
         emb2 = np.frombuffer(row[7], dtype='float').reshape(1, -1)
         emb3 = np.frombuffer(row[8], dtype='float').reshape(1, -1)
-        if cosine_similarity(embbeding, emb1) >= config.FACE_THRESHOLD or cosine_similarity(embbeding,
-                                                                                            emb3) >= config.FACE_THRESHOLD or cosine_similarity(
-            embbeding, emb2) >= config.FACE_THRESHOLD:
+        score1 = cosine_similarity(embbeding, emb1)
+        score2 = cosine_similarity(embbeding, emb3)
+        score3 = cosine_similarity(embbeding, emb2)
+        print(score1)
+        print(score2)
+        print(score3)
+        if score1 >= config.FACE_THRESHOLD or score2 >= config.FACE_THRESHOLD or score3 >= config.FACE_THRESHOLD:
             hocSinh = HocSinh()
             hocSinh.Id = row[0]
             hocSinh.HoTen = row[1]

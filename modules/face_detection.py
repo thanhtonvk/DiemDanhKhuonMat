@@ -6,7 +6,7 @@ from yoloface.face_detector import YoloDetector
 
 class FaceDetection:
     def __init__(self):
-        self.model = YoloDetector(target_size=320, device="cpu",
+        self.model = YoloDetector(target_size=640, device="cpu",
                                   min_face=20)
 
     def detect(self, np_image: np.ndarray):

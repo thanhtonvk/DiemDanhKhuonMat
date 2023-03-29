@@ -18,6 +18,7 @@ if __name__ == '__main__':
             if next_frame % 3 == 0:
                 bboxes = face_detection.detect(frame)
                 if len(bboxes) > 0:
+                    list_hoc_sinh = []
                     for idx, box in enumerate(bboxes):
                         box = list(map(int, box))
                         x_min, y_min, x_max, y_max = box
@@ -26,10 +27,12 @@ if __name__ == '__main__':
                         if next_frame % 30 == 0:
                             hoc_sinh = tim_kiem_hoc_sinh(face_reg.feature_extractor(face))
                         if hoc_sinh is not None:
-                            frame = cv2.putText(frame, unidecode(hoc_sinh.HoTen), (x_min, y_min),
-                                                cv2.FONT_HERSHEY_SIMPLEX, 0.7,
-                                                (255, 255, 255), 1, cv2.LINE_AA)
-                            add_diem_danh(hoc_sinh.Id)
+                            list_hoc_sinh.append(hoc_sinh)
+                    for hoc_sinh in list_hoc_sinh:
+                        frame = cv2.putText(frame, unidecode(hoc_sinh.HoTen), (x_min, y_min),
+                                            cv2.FONT_HERSHEY_SIMPLEX, 0.7,
+                                            (255, 0, 0), 1, cv2.LINE_AA)
+                        add_diem_danh(hoc_sinh.Id)
                 cv2.imshow('frame', frame)
             next_frame += 1
         else:
