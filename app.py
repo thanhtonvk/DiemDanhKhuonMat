@@ -214,10 +214,13 @@ def xuat_file():
     from datetime import datetime
     ds_diem_danh = DiemDanhDal.get_trang_thai_diem_danh(Constants.IDLOP)
     ngay_hien_tai = datetime.today().strftime('%Y_%m_%d')
-    f = open('./export/'+str(Constants.IDLOP)+'_' + ngay_hien_tai + '.csv', encoding='utf-8', mode='a')
+    f = open('./export/' + str(Constants.IDLOP) + '_' + ngay_hien_tai + '.csv', encoding='utf-8', mode='a')
     for diem_danh in ds_diem_danh:
-        f.write(f"{diem_danh.IdHocSinh},{diem_danh.TenHocSinh},{diem_danh.NgayDiemDanh},{diem_danh.GioDiemDanh},{diem_danh.TrangThai}\n")
+        f.write(
+            f"{diem_danh.IdHocSinh},{diem_danh.TenHocSinh},{diem_danh.NgayDiemDanh},{diem_danh.GioDiemDanh},{diem_danh.TrangThai}\n")
     f.close()
     return render_template('diem-danh/index.html', diemDanhs=ds_diem_danh)
+
+
 if __name__ == '__main__':
     app.run(host='localhost', port=5000)
