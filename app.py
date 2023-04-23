@@ -202,7 +202,6 @@ def diem_danh():
                 x_min, y_min, x_max, y_max = box
                 face = frame[y_min:y_max, x_min:x_max]
                 hoc_sinh = tim_kiem_hoc_sinh(face_recognition.feature_extractor(face))
-                print(hoc_sinh.HoTen)
                 if hoc_sinh is not None:
                     add_diem_danh(hoc_sinh.Id)
         return redirect('/')
